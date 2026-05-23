@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="Inner Canvas is a gentle art-based emotional reflection website for people living with and beyond cancer."
+    >
+    <title>Inner Canvas</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <header class="app-header">
+      <div class="brand" aria-label="Inner Canvas home">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <div>
+          <p class="brand-name">Inner Canvas</p>
+          <p class="brand-line">Gentle creative reflection for cancer care</p>
+        </div>
+      </div>
+      <nav class="nav-tabs" aria-label="Main navigation">
+        <button class="nav-tab is-active" type="button" data-view="home">Home</button>
+        <button class="nav-tab" type="button" data-view="checkin">Check-in</button>
+        <button class="nav-tab" type="button" data-view="studio">Studio</button>
+        <button class="nav-tab" type="button" data-view="reflections">Reflections</button>
+        <button class="nav-tab" type="button" data-view="resources">Resources</button>
+        <button class="nav-tab support-tab" type="button" data-view="support">Support</button>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="view is-visible" id="home" aria-labelledby="home-title">
+        <div class="hero-layout">
+          <div class="hero-copy">
+            <p class="eyebrow">Check in -> Understand -> Create -> Reflect</p>
+            <h1 id="home-title">A quieter way to meet what you are carrying today.</h1>
+            <p class="hero-text">
+              Inner Canvas offers short, art-inspired coping activities for people living with and beyond cancer.
+              It helps you notice emotions, choose a gentle creative exercise, and find reliable support resources.
+            </p>
+            <div class="hero-actions" aria-label="Primary actions">
+              <button class="button primary" type="button" data-view-link="checkin">Record how I feel</button>
+              <button class="button secondary" type="button" data-view-link="studio">Start a 5-minute activity</button>
+              <button class="button quiet" type="button" data-view-link="support">I need support now</button>
+            </div>
+            <p class="notice">
+              This website supports reflection and coping. It does not provide medical diagnosis, psychotherapy,
+              emergency care, or treatment advice.
+            </p>
+          </div>
+
+          <div class="art-board" aria-label="A sample emotional color canvas">
+            <div class="paper-sheet">
+              <div class="paint-row">
+                <span class="paint-block anxious"></span>
+                <span class="paint-block tired"></span>
+                <span class="paint-block hopeful"></span>
+              </div>
+              <div class="line-study">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+              <p>Today does not need to be solved. It can be witnessed.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="feature-grid" aria-label="Core app areas">
+          <article class="feature-card">
+            <h2>Low-energy check-ins</h2>
+            <p>Answer only what feels okay. A single emotion is enough to begin.</p>
+          </article>
+          <article class="feature-card">
+            <h2>Personalized activities</h2>
+            <p>Recommendations adapt to emotion, intensity, body energy, and cancer journey stage.</p>
+          </article>
+          <article class="feature-card">
+            <h2>Authoritative resources</h2>
+            <p>Support links are grounded in cancer organizations, hospitals, and peer-reviewed research.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="view" id="checkin" aria-labelledby="checkin-title">
+        <div class="section-heading">
+          <p class="eyebrow">Gentle check-in</p>
+          <h1 id="checkin-title">Only answer what feels okay.</h1>
+          <p>
+            This check-in helps the website suggest a short creative activity. You can skip personal details.
+          </p>
+        </div>
+
+        <form class="checkin-form" id="checkin-form">
+          <fieldset>
+            <legend>What feels most present right now?</legend>
+            <div class="choice-grid">
+              <label><input type="radio" name="emotion" value="anxiety" checked> Anxiety</label>
+              <label><input type="radio" name="emotion" value="anger"> Anger</label>
+              <label><input type="radio" name="emotion" value="sadness"> Sadness</label>
+              <label><input type="radio" name="emotion" value="numbness"> Numbness</label>
+              <label><input type="radio" name="emotion" value="uncertainty"> Uncertainty</label>
+              <label><input type="radio" name="emotion" value="loneliness"> Loneliness</label>
+              <label><input type="radio" name="emotion" value="body"> Body discomfort</label>
+              <label><input type="radio" name="emotion" value="hope"> Hope</label>
+            </div>
+          </fieldset>
+
+          <div class="form-grid">
+            <label class="field">
+              <span>Emotion intensity</span>
+              <input id="intensity" name="intensity" type="range" min="1" max="5" value="3">
+              <output id="intensity-output" for="intensity">3</output>
+            </label>
+            <label class="field">
+              <span>Body energy</span>
+              <select name="energy" id="energy">
+                <option value="low">Low</option>
+                <option value="medium" selected>Medium</option>
+                <option value="high">High</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Cancer journey stage</span>
+              <select name="stage" id="stage">
+                <option value="prefer not to say">Prefer not to say</option>
+                <option value="newly diagnosed">Newly diagnosed</option>
+                <option value="in treatment">In treatment</option>
+                <option value="after treatment">After treatment</option>
+                <option value="scan waiting">Monitoring or scan waiting</option>
+                <option value="recurrence or metastatic disease">Recurrence or metastatic disease</option>
+              </select>
+            </label>
+          </div>
+
+          <label class="field full">
+            <span>Optional diary note</span>
+            <textarea
+              name="diary"
+              id="diary"
+              rows="6"
+              placeholder="A few words are enough. You can also leave this blank."
+            ></textarea>
+          </label>
+
+          <label class="risk-check">
+            <input type="checkbox" id="needs-support">
+            I may need urgent human support, or I do not feel safe with myself right now.
+          </label>
+
+          <div class="form-actions">
+            <button class="button primary" type="submit">See my reflection</button>
+            <button class="button secondary" type="button" id="quick-activity">Skip to activity</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="view" id="reflection" aria-labelledby="reflection-title">
+        <div class="section-heading">
+          <p class="eyebrow">Emotion reflection</p>
+          <h1 id="reflection-title">What seems present today</h1>
+          <p id="reflection-summary">
+            Complete a check-in to receive a careful, non-diagnostic reflection.
+          </p>
+        </div>
+
+        <div class="result-layout">
+          <article class="reflection-panel">
+            <h2>You may need</h2>
+            <p id="need-text">A gentle activity that gives your feeling a little room.</p>
+            <div class="mood-meter" aria-label="Emotion intensity visualization">
+              <span id="meter-fill"></span>
+            </div>
+            <p class="small-text" id="context-text">Your context will appear here.</p>
+          </article>
+
+          <article class="recommendation-panel">
+            <p class="tagline">Recommended activity</p>
+            <h2 id="activity-title">Safe Place Drawing</h2>
+            <p id="activity-description">
+              Draw or assemble a place where your body can imagine some safety.
+            </p>
+            <ul class="activity-meta" id="activity-meta"></ul>
+            <div class="panel-actions">
+              <button class="button primary" type="button" id="start-recommended">Start activity</button>
+              <button class="button secondary" type="button" id="listen-recommended">Listen to guidance</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="view" id="studio" aria-labelledby="studio-title">
+        <div class="studio-header">
+          <div>
+            <p class="eyebrow">Guided art studio</p>
+            <h1 id="studio-title">Create for a few minutes, without needing it to look beautiful.</h1>
+          </div>
+          <label class="activity-picker">
+            <span>Activity</span>
+            <select id="activity-select"></select>
+          </label>
+        </div>
+
+        <div class="studio-layout">
+          <section class="workspace" aria-label="Drawing workspace">
+            <div class="canvas-toolbar" aria-label="Drawing tools">
+              <label>
+                <span>Color</span>
+                <input type="color" id="brush-color" value="#315f72">
+              </label>
+              <label>
+                <span>Size</span>
+                <input type="range" id="brush-size" min="2" max="28" value="8">
+              </label>
+              <button class="icon-button" type="button" id="clear-canvas">Clear</button>
+            </div>
+            <canvas id="drawing-canvas" width="900" height="560" aria-label="Drawing canvas"></canvas>
+          </section>
+
+          <aside class="guide-panel" aria-label="Activity guidance">
+            <p class="tagline" id="guide-time">5 minutes</p>
+            <h2 id="guide-title">Safe Place Drawing</h2>
+            <ol id="guide-steps"></ol>
+            <label class="field">
+              <span>Private closing note</span>
+              <textarea id="closing-note" rows="5" placeholder="What did you notice?"></textarea>
+            </label>
+            <div class="panel-actions">
+              <button class="button secondary" type="button" id="play-guide">Play audio guidance</button>
+              <button class="button primary" type="button" id="save-reflection">Save reflection</button>
+            </div>
+            <p class="small-text">
+              You can clear or leave the canvas. The value is in noticing, not in producing an artwork.
+            </p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="view" id="reflections" aria-labelledby="reflections-title">
+        <div class="section-heading">
+          <p class="eyebrow">My reflections</p>
+          <h1 id="reflections-title">A quiet record of what you chose to keep.</h1>
+          <p>No streaks, scores, or judgment. Saved reflections stay in this browser for this first version.</p>
+        </div>
+        <div class="reflection-list" id="reflection-list"></div>
+      </section>
+
+      <section class="view" id="resources" aria-labelledby="resources-title">
+        <div class="section-heading">
+          <p class="eyebrow">Reliable resources</p>
+          <h1 id="resources-title">Support information from cancer and health organizations.</h1>
+          <p>
+            These links are included to ground the website in authoritative psychosocial resources.
+          </p>
+        </div>
+
+        <div class="resource-grid">
+          <article class="resource-card">
+            <p class="tagline">National Cancer Institute</p>
+            <h2>Coping with Cancer</h2>
+            <p>General information about coping, support, survivorship, and patient-family resources.</p>
+            <a href="https://www.cancer.gov/about-cancer/coping" target="_blank" rel="noreferrer">Open source</a>
+          </article>
+          <article class="resource-card">
+            <p class="tagline">National Cancer Institute</p>
+            <h2>Emotions and Cancer</h2>
+            <p>Explains common emotional responses including anxiety, anger, sadness, and stress.</p>
+            <a href="https://www.cancer.gov/about-cancer/coping/feelings" target="_blank" rel="noreferrer">Open source</a>
+          </article>
+          <article class="resource-card">
+            <p class="tagline">American Cancer Society</p>
+            <h2>Managing Distress</h2>
+            <p>Guidance on distress, coping skills, and when professional support may help.</p>
+            <a href="https://www.cancer.org/cancer/managing-cancer/side-effects/emotional-mood-changes/distress/managing-distress.html" target="_blank" rel="noreferrer">Open source</a>
+          </article>
+          <article class="resource-card">
+            <p class="tagline">American Cancer Society</p>
+            <h2>Psychosocial Support Services</h2>
+            <p>Information about counseling, support groups, and social support for people with cancer.</p>
+            <a href="https://www.cancer.org/cancer/survivorship/coping/understanding-psychosocial-support-services.html" target="_blank" rel="noreferrer">Open source</a>
+          </article>
+          <article class="resource-card">
+            <p class="tagline">Peer-reviewed research</p>
+            <h2>Creative Arts Therapy Review</h2>
+            <p>Research synthesis on creative arts therapies, anxiety, depression, and quality of life in cancer care.</p>
+            <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC13000673/" target="_blank" rel="noreferrer">Open source</a>
+          </article>
+        </div>
+      </section>
+
+      <section class="view" id="support" aria-labelledby="support-title">
+        <div class="support-layout">
+          <div>
+            <p class="eyebrow">Support and safety</p>
+            <h1 id="support-title">You do not need to handle this moment alone.</h1>
+            <p>
+              This website cannot provide emergency care. If you may hurt yourself, feel unsafe, or need immediate
+              help, contact emergency services now or reach out to a crisis line in your area.
+            </p>
+          </div>
+          <div class="support-actions">
+            <a class="button primary" href="tel:988">Call 988 in the United States</a>
+            <a class="button secondary" href="https://988lifeline.org/" target="_blank" rel="noreferrer">Visit 988 Lifeline</a>
+            <a class="button quiet" href="https://www.cancer.org/cancer/survivorship/coping/understanding-psychosocial-support-services.html" target="_blank" rel="noreferrer">Find cancer support services</a>
+          </div>
+        </div>
+
+        <div class="support-grid">
+          <article>
+            <h2>Contact your care team</h2>
+            <p>Oncology nurses, social workers, palliative care teams, and mental health professionals can help with distress.</p>
+          </article>
+          <article>
+            <h2>Tell one trusted person</h2>
+            <p>A simple message can be enough: "I am having a hard moment and I do not want to be alone with it."</p>
+          </article>
+          <article>
+            <h2>Use the app gently</h2>
+            <p>If a creative activity feels too heavy, stop. Seeking human support can be the next right step.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <p>Inner Canvas is a first-version prototype for supportive reflection, not medical or mental health care.</p>
+      <button class="text-button" type="button" id="clear-data">Clear saved local reflections</button>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
