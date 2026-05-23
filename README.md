@@ -16,3 +16,4 @@ This site is GitHub Pages friendly because it uses plain static files:
 - `.nojekyll`
 
 In GitHub, enable Pages for the repository branch and root folder. The website should load without a build step.
+Hello world
