@@ -2,202 +2,295 @@
 
 ## 1. Project Vision
 
-This project aims to create a gentle, trustworthy, art-based emotional reflection website for people living with and beyond cancer. The website helps users notice and express their emotional needs through short, personalized, creative activities grounded in reliable psychosocial support resources.
+This website is an emotionally supportive, personalized art-based companion for people living with and beyond cancer. It begins with a warm sign-up flow so the experience can be shaped by each user’s cancer type, age, and current cancer journey stage.
 
-The app is not a diagnostic tool, medical device, crisis service, or replacement for therapy. It is a supportive companion that helps users:
+The app is not a medical or diagnostic tool. It is designed to help users:
 
-- Record how they feel in a low-burden way.
-- Reflect on emotional patterns with care and nuance.
-- Receive art-inspired coping activities matched to their current emotional state, energy level, and cancer journey context.
-- Access trustworthy psychosocial resources from authoritative cancer and health organizations.
-- Know when and how to seek human support.
+- Start with a personalized profile.
+- Keep a daily emotional diary.
+- See trends in mood and emotional needs.
+- Receive art-inspired coping activity suggestions tailored to their cancer journey and current state.
+- Access dynamic resources matched to their present emotional needs.
 
 ## 2. Target Users
 
-The primary users are:
+Primary users:
 
 - People newly diagnosed with cancer.
 - People currently receiving treatment.
-- Cancer survivors after active treatment.
+- People after active treatment.
 - People living with recurrence, metastatic disease, or long-term uncertainty.
-- Optionally, caregivers may be supported in a later version, but the first product should focus on patients and survivors.
+- People at later or end-of-life stages.
 
-The website should assume users may have limited emotional, physical, or cognitive energy because of treatment, fatigue, pain, uncertainty, medication effects, or distress.
+The product assumes users may have low energy, emotional strain, cognitive fatigue, or illness-related stress.
 
 ## 3. Core Design Principles
 
-### 3.1 Gentle, Not Demanding
+### 3.1 Personalized from the Start
 
-The product should reduce pressure rather than create another task. Users should be able to complete a check-in or activity in 3 to 10 minutes.
+The user journey begins with registration and collection of key personalization factors:
 
-Design implications:
+- Cancer type
+- Age range
+- Stage / cancer journey status
 
-- Use short questions.
-- Allow users to skip sensitive fields.
-- Avoid streaks, scores, rankings, or productivity-style progress.
-- Let users pause, save, or discard reflections.
+These factors should influence activity recommendations and support resources throughout the app.
 
-### 3.2 Supportive, Not Diagnostic
+### 3.2 Diary-Driven Emotional Support
 
-The app may identify emotional signals, but it must not diagnose mental health conditions.
+The core experience is daily emotional journaling paired with trend-aware reflection. The diary is the primary input for both activity and resource recommendations.
 
-Use:
+### 3.3 Contextual, Not One-Size-Fits-All
 
-- "You may be experiencing..."
-- "Your entry suggests..."
-- "This activity may help you explore..."
+Recommendations should consider:
 
-Avoid:
+- Personal profile (cancer type, age, stage)
+- Current day entry
+- Recent emotional trend (for example one-week trajectory)
+- Energy level and mood intensity
 
-- "You have depression."
-- "You are clinically anxious."
-- "This activity will treat your distress."
+This ensures coping activities and support information adapt to different needs.
 
-### 3.3 Art-Inspired, Not Clinical Art Therapy
+### 3.4 Supportive, Not Diagnostic
 
-The website should describe its activities as art-inspired reflection or creative coping activities. Formal art therapy is usually delivered by trained professionals and should not be implied unless the product is supervised by qualified clinicians.
+Use validating, careful language. Avoid clinical labels and avoid implying that the app treats illness.
 
 Use:
 
-- "Creative reflection activity"
-- "Art-inspired coping exercise"
-- "Guided drawing or color-based reflection"
+- "This may help you express what you are feeling."
+- "You might find this supportive today."
+- "A gentle creative exercise to consider."
 
 Avoid:
 
-- "This is art therapy" unless clinically supervised.
-- Claims that creative activities can cure or treat cancer-related distress.
+- "This is therapy."
+- "You are depressed/anxious."
+- "This will fix your feelings."
 
-### 3.4 Evidence-Aware and Source-Grounded
+### 3.5 Dynamic Resource Matching
 
-Recommendations should be supported by reliable sources such as:
+Resources must be tailored to the user’s current emotional need and cancer journey stage, not presented as a fixed generic list.
 
-- National Cancer Institute (NCI)
-- American Cancer Society (ACS)
-- Cancer.Net / American Society of Clinical Oncology (ASCO)
-- Cancer Support Community
-- Major cancer hospitals or academic medical centers
-- Peer-reviewed research and systematic reviews
+Examples:
 
-The website should make clear that art-based activities may support emotional expression and coping, but they are not substitutes for medical care, psychological treatment, or crisis support.
-
-### 3.5 Emotionally Careful Language
-
-The tone must be warm, validating, and precise. The app should avoid toxic positivity or language that implies users are responsible for feeling better.
-
-Use:
-
-- "What you are feeling deserves care."
-- "You do not have to make sense of everything today."
-- "A small exercise is enough."
-- "Reaching out to your care team can be a strong next step."
-
-Avoid:
-
-- "Stay positive."
-- "Everything happens for a reason."
-- "You just need to be strong."
-- "Complete this to improve your mindset."
+- Newly diagnosed: coping with diagnosis, understanding early support, navigating fear.
+- In treatment: managing treatment side effects, fatigue, uncertainty.
+- End of treatment: recovery anxiety, survivorship adjustment.
+- Transitioning off treatment: rebuilding routine, finding meaning.
+- End of life: comfort, family support, dignified care.
 
 ## 4. Product Experience Model
 
 The core flow should be:
 
-**Check in -> Understand -> Create -> Reflect -> Get Support**
-
-This structure gives the website a complete emotional support loop:
-
-1. The user records how they feel.
-2. The app reflects possible emotional needs.
-3. The app recommends a gentle creative activity.
-4. The user completes or adapts the activity.
-5. The app helps the user save insights or access support resources.
+**Sign up / log in -> Personalize -> Daily diary entry -> Trend analysis -> Activity recommendation -> Support resources**
 
 ## 5. Key Website Pages
 
-### 5.1 Welcome / Home
+### 5.1 Welcome / Authentication
 
 Purpose:
 
-Introduce the website as a calm, supportive emotional reflection space and give users immediate access to the main actions.
+Open with a gentle authentication screen that makes it clear the app is personal and supportive.
 
-Primary actions:
+Primary options:
 
-- "Record how I feel today"
-- "Start a 5-minute art activity"
-- "I need support now"
+- Login
+- Sign up
 
-Content requirements:
+Sign-up collects the three personalization factors:
 
-- State that the website offers supportive reflection, not medical diagnosis.
-- Use a visually calm art-forward design.
-- Avoid a marketing-heavy landing page.
-- Make the product itself visible in the first screen.
+- Cancer type
+- Age range
+- Stage / cancer journey status
 
-### 5.2 Gentle Check-In
+This page should also reassure users about privacy and explain that no clinical diagnosis is made.
 
-Purpose:
-
-Collect the user's current emotional and contextual state in a low-burden format.
-
-Suggested inputs:
-
-- Main emotion: anxious, angry, sad, numb, lonely, afraid, uncertain, hopeful, tired.
-- Emotion intensity: 1 to 5.
-- Body energy: low, medium, high.
-- Optional diary entry.
-- Optional cancer journey stage:
-  - Newly diagnosed
-  - In treatment
-  - After treatment
-  - Monitoring or scan waiting
-  - Recurrence or metastatic disease
-  - Prefer not to say
-- Optional cancer type.
-- Optional age range.
-
-Design requirements:
-
-- Every sensitive question should be skippable.
-- The page should work even if the user only selects one emotion.
-- The app should not ask for directly identifying information such as full name, address, medical record number, hospital ID, or exact birthdate.
-
-### 5.3 Emotion Reflection
+### 5.2 Personal Profile
 
 Purpose:
 
-Translate the user's check-in and diary into a careful, non-diagnostic reflection.
+Let users confirm and update their profile information anytime.
 
-Suggested sections:
+Profile fields:
 
-- "What seems present today"
-- "What you may need"
-- "A gentle activity to try"
-- "When to seek more support"
+- Cancer type
+- Age range
+- Current cancer journey stage
+- Optional preferences for energy level, focus, or creative style
 
-Example tone:
+Design notes:
 
-> Your check-in suggests anxiety and low energy may be present today. That can happen when treatment, appointments, side effects, or uncertainty take up a lot of space. You do not need to solve the feeling all at once. A short grounding activity may be enough for now.
+- Make fields skippable or optional where needed.
+- Emphasize that this information improves activity and resource match.
 
-Safety requirements:
-
-- If the user indicates severe distress, self-harm, hopelessness, or immediate danger, the page should prioritize support resources rather than standard activity recommendations.
-- The app should clearly encourage contacting emergency services, a crisis line, a healthcare team, or a trusted person when appropriate.
-
-### 5.4 Activity Recommendations
+### 5.3 Emotional Diary Entry
 
 Purpose:
 
-Recommend personalized art-inspired coping activities based on the user's emotion, intensity, energy level, and cancer journey stage.
+Capture a daily reflection that becomes the foundation for trend insights and recommendations.
 
-Each activity card should include:
+Suggested fields:
 
-- Activity name.
-- Emotion it supports.
-- Estimated time.
-- Energy level required.
-- Materials needed.
-- Audio guidance option.
+- Main mood or emotional label
+- Intensity / energy level
+- Text entry for how the day felt
+- Optional prompt about what felt hardest or what felt supportive
+
+Design notes:
+
+- Keep it quick and low-pressure.
+- Allow users to save even if only one field is completed.
+- Encourage but do not require writing more than a sentence.
+
+### 5.4 Emotion Trend Analysis
+
+Purpose:
+
+Help users understand how their emotional state is changing over time.
+
+Key outputs:
+
+- Weekly trend summary
+- Patterns such as rising anxiety, recurring fatigue, or more hopeful moments
+- Keywords or themes from recent entries
+
+Design notes:
+
+- Present trends in a gentle, non-judgmental way.
+- Use visuals or short summaries rather than scores.
+- Avoid comparisons like streaks or performance metrics.
+
+### 5.5 Personalized Activity Recommendation
+
+Purpose:
+
+Recommend an art-inspired coping activity tailored to:
+
+- cancer type
+- age
+- current journey stage
+- one-week emotional trend
+- today’s diary entry
+
+Recommendation logic:
+
+- Choose activities that match energy and mood.
+- Avoid always returning the same activity.
+- Explain why the activity is suggested for this user today.
+
+Activity library examples:
+
+- Mandala creation
+- Safe space drawing
+- Self portrait
+- Emotion color map
+- Collage reflection
+- Visual gratitude list
+- Support network illustration
+- Calm landscape sketch
+
+Each recommended activity should show:
+
+- Name
+- Why it matches today
+- Time estimate
+- Energy requirement
+- Materials needed
+- Optional audio or guided prompt
+
+### 5.6 Adaptive Support Resources
+
+Purpose:
+
+Provide resources that align with the user’s current emotional need and cancer stage.
+
+Resource matching should consider:
+
+- Stage of journey
+- Current mood and emotional needs
+- Whether the user feels overwhelmed, uncertain, lonely, or afraid
+
+Examples:
+
+- Newly diagnosed: diagnosis support pages, coping with fear, first steps.
+- In treatment: symptom support, managing side effects, practical self-care.
+- After treatment: survivorship support, scan anxiety, rebuilding routine.
+- Transitioning: meaning-making, life after treatment, social connection.
+- End of life: comfort care, family communication, emotional support.
+
+Design notes:
+
+- Each resource item should include a brief rationale.
+- Use trusted sources and phrase resources as additional options, not requirements.
+
+## 6. Personalization Rules
+
+### Cancer Type
+
+Use cancer type to inform the emotional context and relevant activity themes, especially when body image or treatment side effects are prominent.
+
+### Age Range
+
+Adjust support tone and activity style for different life stages:
+
+- Younger adults: future concerns, relationships, identity.
+- Middle-aged: work/family balance, parental roles.
+- Older adults: comfort, legacy, physical pacing.
+
+### Cancer Journey Stage
+
+Stage-specific needs shape both activities and resources:
+
+- Newly diagnosed: grounding, information, fear management.
+- In treatment: energy support, stability, emotional space.
+- After treatment: adjustment, uncertainty, planning.
+- Transitioning: rebuilding self, hope and limits.
+- End of life: comfort, connection, acceptance.
+
+### Emotional Trend
+
+Use recent diary patterns to select activities that respond to the user’s current trajectory:
+
+- Persistent low mood: supportive, gentle creative practices.
+- High anxiety: calming expression, grounding art.
+- Mixed or changing emotions: reflective synthesis activities.
+
+### Today’s Entry
+
+Let the user’s words guide the recommendation:
+
+- Worries about treatment → suggest expressive or safety-focused art.
+- Feelings of isolation → suggest relationship/support imagery.
+- Fatigue or overwhelm → suggest low-effort, color-based reflection.
+
+## 7. Language and Tone
+
+Keep copy:
+
+- Warm and validating
+- Non-judgmental
+- Simple and gentle
+
+Use phrases like:
+
+- "It’s okay to take a small step."
+- "This is a gentle way to notice how you are feeling."
+- "One short creative moment may help you feel seen."
+
+Include clear disclaimers:
+
+- "This app is not a medical diagnosis tool."
+- "If you are in crisis or feel unsafe, please contact a trusted person or professional support."
+
+## 8. Implementation Notes
+
+- The app should support private, user-specific entries.
+- Recommendations must be generated from the combined context of profile, diary, and trends.
+- The resource section must be dynamic and stage-aware.
+- The UI should avoid forcing users into long tasks.
+- Keep the design calm, artful, and accessible.
+
 - Short explanation of why it may help.
 - Related authoritative source or evidence note.
 
