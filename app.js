@@ -129,9 +129,126 @@ const activities = {
   }
 };
 
+const resourcesByStage = {
+  "newly diagnosed": [
+    {
+      organization: "National Cancer Institute",
+      title: "Coping with Cancer",
+      description: "Practical guidance for managing fear, information overload, and emotional uncertainty after diagnosis.",
+      href: "https://www.cancer.gov/about-cancer/coping"
+    },
+    {
+      organization: "American Cancer Society",
+      title: "Understanding Psychosocial Support",
+      description: "How counseling, support groups, and social services can help people newly diagnosed with cancer.",
+      href: "https://www.cancer.org/cancer/survivorship/coping/understanding-psychosocial-support-services.html"
+    }
+  ],
+  "in treatment": [
+    {
+      organization: "National Cancer Institute",
+      title: "Support During Treatment",
+      description: "Coping with side effects, managing fatigue, and staying connected while receiving treatment.",
+      href: "https://www.cancer.gov/about-cancer/coping"
+    },
+    {
+      organization: "American Cancer Society",
+      title: "Managing Distress",
+      description: "Support for emotional changes and stress during active cancer treatment.",
+      href: "https://www.cancer.org/cancer/managing-cancer/side-effects/emotional-mood-changes/distress/managing-distress.html"
+    }
+  ],
+  "after treatment": [
+    {
+      organization: "National Cancer Institute",
+      title: "Adjusting After Treatment",
+      description: "Resources for coping with recovery anxiety, follow-up care, and changes in identity.",
+      href: "https://www.cancer.gov/about-cancer/coping/feelings"
+    },
+    {
+      organization: "American Cancer Society",
+      title: "Survivorship Support",
+      description: "Practical tips for life after active cancer treatment and managing scan-related worry.",
+      href: "https://www.cancer.org/cancer/survivorship/coping.html"
+    }
+  ],
+  "scan waiting": [
+    {
+      organization: "Cancer Support Community",
+      title: "Managing Waiting Periods",
+      description: "Tools for handling uncertainty and scan-related anxiety while you wait for results.",
+      href: "https://www.cancersupportcommunity.org/"
+    },
+    {
+      organization: "National Cancer Institute",
+      title: "Emotions and Cancer",
+      description: "Information about normal emotional responses to scans, follow-up, and monitoring.",
+      href: "https://www.cancer.gov/about-cancer/coping/feelings"
+    }
+  ],
+  "recurrence or metastatic disease": [
+    {
+      organization: "American Cancer Society",
+      title: "Living with Advanced Cancer",
+      description: "Support resources for people navigating recurrence or metastatic illness.",
+      href: "https://www.cancer.org/cancer.html"
+    },
+    {
+      organization: "Cancer.Net",
+      title: "Coping with a Recurrence",
+      description: "Emotional support and practical tips for cancer recurrence and ongoing treatment.",
+      href: "https://www.cancer.net/"
+    }
+  ],
+  "transitioning off treatment": [
+    {
+      organization: "National Cancer Institute",
+      title: "Life After Treatment",
+      description: "Guidance on rebuilding routine, dealing with uncertain recovery, and seeking support.",
+      href: "https://www.cancer.gov/about-cancer/coping"
+    },
+    {
+      organization: "American Cancer Society",
+      title: "Returning to Everyday Life",
+      description: "Practical advice for the transition period after treatment ends.",
+      href: "https://www.cancer.org/cancer/survivorship.html"
+    }
+  ],
+  "end of life": [
+    {
+      organization: "National Cancer Institute",
+      title: "End-of-Life Support",
+      description: "Information about comfort care, family conversations, and emotional support during later stages.",
+      href: "https://www.cancer.gov/about-cancer/coping"
+    },
+    {
+      organization: "American Cancer Society",
+      title: "Support for Patients and Caregivers",
+      description: "Practical and emotional support resources for people nearing end of life.",
+      href: "https://www.cancer.org/"
+    }
+  ],
+  default: [
+    {
+      organization: "National Cancer Institute",
+      title: "Emotions and Cancer",
+      description: "Information about common emotional responses and ways to cope.",
+      href: "https://www.cancer.gov/about-cancer/coping/feelings"
+    },
+    {
+      organization: "American Cancer Society",
+      title: "Managing Distress",
+      description: "Guidance on distress, coping, and when to reach out for help.",
+      href: "https://www.cancer.org/cancer/managing-cancer/side-effects/emotional-mood-changes/distress/managing-distress.html"
+    }
+  ]
+};
+
 const state = {
   currentEmotion: "anxiety",
   currentActivity: activities.anxiety,
+  profile: null,
+  entries: [],
   drawing: false
 };
 
@@ -144,23 +261,176 @@ const intensityOutput = document.querySelector("#intensity-output");
 const activitySelect = document.querySelector("#activity-select");
 const canvas = document.querySelector("#drawing-canvas");
 const ctx = canvas.getContext("2d");
+const signupForm = document.querySelector("#signup-form");
+const loginForm = document.querySelector("#login-form");
+const profileForm = document.querySelector("#profile-form");
+const profileContext = document.querySelector("#profile-context");
+const welcomeGreeting = document.querySelector("#welcome-greeting");
+const resourceList = document.querySelector("#resource-list");
+const trendSummary = document.querySelector("#trend-summary");
 
-function showView(id) {
-  views.forEach((view) => view.classList.toggle("is-visible", view.id === id));
-  navTabs.forEach((tab) => tab.classList.toggle("is-active", tab.dataset.view === id));
-  window.scrollTo({ top: 0, behavior: "smooth" });
+function getProfile() {
+  return JSON.parse(localStorage.getItem("innerCanvasProfile") || "null");
+}
+
+function setProfile(profile) {
+  localStorage.setItem("innerCanvasProfile", JSON.stringify(profile));
+  state.profile = profile;
+}
+
+function clearProfile() {
+  localStorage.removeItem("innerCanvasProfile");
+  state.profile = null;
+}
+
+function getDiaryEntries() {
+  return JSON.parse(localStorage.getItem("innerCanvasDiary") || "[]");
+}
+
+function setDiaryEntries(entries) {
+  localStorage.setItem("innerCanvasDiary", JSON.stringify(entries));
+  state.entries = entries;
+}
+
+function addDiaryEntry(entry) {
+  const entries = getDiaryEntries();
+  entries.unshift(entry);
+  setDiaryEntries(entries.slice(0, 14));
+}
+
+function formatDate(value) {
+  return new Date(value).toLocaleDateString(undefined, {
+    month: "short",
+    day: "numeric",
+    year: "numeric"
+  });
+}
+
+function updateProfileUI() {
+  const profile = state.profile;
+
+  if (!profile) {
+    welcomeGreeting.textContent = "Welcome to Inner Canvas. Start with the profile tab so the app can tailor support to you.";
+    profileContext.textContent = "Complete sign-up to personalize your recommendations.";
+    return;
+  }
+
+  welcomeGreeting.textContent = `Welcome back. Support will be shaped by ${profile.cancerType}, age ${profile.ageRange}, and ${profile.stage}.`;
+  profileContext.textContent = `Profile: ${profile.cancerType} • ${profile.ageRange} • ${profile.stage}. Update anytime in Profile.`;
+
+  document.querySelector("#profile-email").value = profile.email || "";
+  document.querySelector("#profile-cancerType").value = profile.cancerType || "";
+  document.querySelector("#profile-ageRange").value = profile.ageRange || "";
+  document.querySelector("#profile-stage").value = profile.stage || "prefer not to say";
+  const checkinStage = document.querySelector("#stage");
+  if (checkinStage) {
+    checkinStage.value = profile.stage || "prefer not to say";
+  }
+}
+
+function computeTrend(entries) {
+  const recent = entries.slice(0, 7);
+
+  if (!recent.length) {
+    return "No diary entries yet. Your first entry will help the app learn your emotional pattern.";
+  }
+
+  const count = recent.reduce((acc, entry) => {
+    acc[entry.emotion] = (acc[entry.emotion] || 0) + 1;
+    return acc;
+  }, {});
+  const sorted = Object.entries(count).sort((a, b) => b[1] - a[1]);
+  const topEmotion = sorted[0][0];
+  const trend = `In your last ${recent.length} entries, ${topEmotion} appeared most often.`;
+
+  const recentSlice = recent.slice(0, 3).map((entry) => entry.emotion);
+  const earlierSlice = recent.slice(-3).map((entry) => entry.emotion);
+
+  if (recentSlice.filter((e) => e === topEmotion).length > earlierSlice.filter((e) => e === topEmotion).length) {
+    return `Your most recent entries show more ${topEmotion} than earlier this week. ${trend}`;
+  }
+
+  return `${trend} This can help guide what may feel most supportive.`;
+}
+
+function buildResourceCards(profile) {
+  const stage = (profile && profile.stage) || "default";
+  return resourcesByStage[stage] || resourcesByStage.default;
+}
+
+function renderResources() {
+  if (!resourceList) return;
+
+  if (!state.profile) {
+    resourceList.innerHTML = `
+      <article class="resource-card">
+        <p class="tagline">Personalized resources</p>
+        <h2>Create a profile</h2>
+        <p>Sign up and complete your profile to see resources matched to your current cancer journey stage.</p>
+      </article>
+    `;
+    return;
+  }
+
+  const cards = buildResourceCards(state.profile).map((resource) => `
+    <article class="resource-card">
+      <p class="tagline">${escapeHtml(resource.organization)}</p>
+      <h2>${escapeHtml(resource.title)}</h2>
+      <p>${escapeHtml(resource.description)}</p>
+      <a href="${escapeHtml(resource.href)}" target="_blank" rel="noreferrer">Open source</a>
+    </article>
+  `);
+
+  resourceList.innerHTML = cards.join("");
 }
 
 function getFormData() {
   const formData = new FormData(checkinForm);
+  const profile = state.profile || {};
+
   return {
     emotion: formData.get("emotion") || "anxiety",
     intensity: Number(formData.get("intensity") || 3),
     energy: formData.get("energy") || "medium",
-    stage: formData.get("stage") || "prefer not to say",
+    stage: formData.get("stage") || profile.stage || "prefer not to say",
     diary: String(formData.get("diary") || "").trim(),
-    needsSupport: document.querySelector("#needs-support").checked
+    needsSupport: document.querySelector("#needs-support").checked,
+    cancerType: profile.cancerType || "Unknown",
+    ageRange: profile.ageRange || "Unknown"
   };
+}
+
+function saveDiaryEntry(data) {
+  const entry = {
+    id: Date.now(),
+    date: new Date().toISOString(),
+    emotion: data.emotion,
+    intensity: data.intensity,
+    energy: data.energy,
+    stage: data.stage,
+    diary: data.diary,
+    cancerType: data.cancerType,
+    ageRange: data.ageRange
+  };
+  addDiaryEntry(entry);
+}
+
+function getActivityRecommendation(data) {
+  let activity = activities[data.emotion] || activities.anxiety;
+
+  if (data.stage === "end of life" && data.emotion === "uncertainty") {
+    activity = activities.body;
+  }
+
+  if (data.stage === "after treatment" && data.emotion === "uncertainty") {
+    activity = activities.uncertainty;
+  }
+
+  if (data.stage === "in treatment" && data.emotion === "body") {
+    activity = activities.body;
+  }
+
+  return activity;
 }
 
 function detectSafetyNeed(data) {
@@ -178,7 +448,8 @@ function detectSafetyNeed(data) {
 }
 
 function updateReflection(data) {
-  const activity = activities[data.emotion] || activities.anxiety;
+  saveDiaryEntry(data);
+  const activity = getActivityRecommendation(data);
   state.currentEmotion = data.emotion;
   state.currentActivity = activity;
 
@@ -189,6 +460,7 @@ function updateReflection(data) {
       "You deserve immediate support. Please contact emergency services, a crisis line, your care team, or a trusted person now.";
     document.querySelector("#context-text").textContent =
       "The support page is available from every screen. In the United States, 988 is available for suicidal thoughts or emotional crisis.";
+    document.querySelector("#trend-summary").textContent = computeTrend(getDiaryEntries());
     document.querySelector("#activity-title").textContent = "Support first";
     document.querySelector("#activity-description").textContent =
       "Creative reflection can wait. Your safety and connection with a real person matter more right now.";
@@ -196,33 +468,33 @@ function updateReflection(data) {
     document.querySelector("#start-recommended").textContent = "Go to support";
     document.querySelector("#start-recommended").onclick = () => showView("support");
     document.querySelector("#meter-fill").style.width = "100%";
-    return;
+  } else {
+    const energyText = data.energy === "low"
+      ? "Because your energy is low, a short and simple version may be enough."
+      : "You can keep this brief or spend more time if it feels supportive.";
+    document.querySelector("#reflection-summary").textContent =
+      `Your check-in suggests ${data.emotion} may be present today. This is not a diagnosis; it is a starting point for a gentle activity.`;
+    document.querySelector("#need-text").textContent = activity.need;
+    document.querySelector("#context-text").textContent =
+      `Intensity ${data.intensity}/5. Energy: ${data.energy}. Stage: ${data.stage}. ${energyText}`;
+    document.querySelector("#trend-summary").textContent = computeTrend(getDiaryEntries());
+    document.querySelector("#activity-title").textContent = activity.title;
+    document.querySelector("#activity-description").textContent = activity.description;
+    document.querySelector("#activity-meta").innerHTML = `
+      <li>${activity.time}</li>
+      <li>${activity.energy}</li>
+      <li>${activity.materials}</li>
+      <li>${activity.source}</li>
+    `;
+    document.querySelector("#start-recommended").textContent = "Start activity";
+    document.querySelector("#start-recommended").onclick = () => {
+      activitySelect.value = data.emotion;
+      updateStudio(data.emotion);
+      showView("studio");
+    };
+    document.querySelector("#meter-fill").style.width = `${Math.max(20, data.intensity * 20)}%`;
   }
-
-  const energyText = data.energy === "low"
-    ? "Because your energy is low, a short and simple version may be enough."
-    : "You can keep this brief or spend more time if it feels supportive.";
-
-  document.querySelector("#reflection-summary").textContent =
-    `Your check-in suggests ${data.emotion} may be present today. This is not a diagnosis; it is a starting point for a gentle activity.`;
-  document.querySelector("#need-text").textContent = activity.need;
-  document.querySelector("#context-text").textContent =
-    `Intensity ${data.intensity}/5. Energy: ${data.energy}. Stage: ${data.stage}. ${energyText}`;
-  document.querySelector("#activity-title").textContent = activity.title;
-  document.querySelector("#activity-description").textContent = activity.description;
-  document.querySelector("#activity-meta").innerHTML = `
-    <li>${activity.time}</li>
-    <li>${activity.energy}</li>
-    <li>${activity.materials}</li>
-    <li>${activity.source}</li>
-  `;
-  document.querySelector("#start-recommended").textContent = "Start activity";
-  document.querySelector("#start-recommended").onclick = () => {
-    activitySelect.value = data.emotion;
-    updateStudio(data.emotion);
-    showView("studio");
-  };
-  document.querySelector("#meter-fill").style.width = `${Math.max(20, data.intensity * 20)}%`;
+  renderResources();
 }
 
 function updateStudio(emotion) {
@@ -239,7 +511,6 @@ function speakActivity(activity) {
     alert("Audio guidance is not available in this browser.");
     return;
   }
-
   window.speechSynthesis.cancel();
   const text = `${activity.title}. ${activity.description}. ${activity.steps.join(" ")}`;
   const utterance = new SpeechSynthesisUtterance(text);
@@ -316,7 +587,7 @@ function saveReflection() {
     emotion: state.currentEmotion,
     note,
     image,
-    date: new Date().toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })
+    date: formatDate(new Date())
   });
   setSavedReflections(saved.slice(0, 12));
   renderReflections();
@@ -335,7 +606,6 @@ function renderReflections() {
     `;
     return;
   }
-
   list.innerHTML = saved.map((item) => `
     <article class="saved-item">
       <img src="${escapeHtml(item.image)}" alt="Saved canvas from ${escapeHtml(item.title)}">
@@ -346,6 +616,73 @@ function renderReflections() {
       </div>
     </article>
   `).join("");
+}
+
+function showView(id) {
+  if (!state.profile && id !== "auth" && id !== "support") {
+    id = "auth";
+  }
+  views.forEach((view) => view.classList.toggle("is-visible", view.id === id));
+  navTabs.forEach((tab) => tab.classList.toggle("is-active", tab.dataset.view === id));
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function handleSignup(event) {
+  event.preventDefault();
+  const formData = new FormData(signupForm);
+  const profile = {
+    email: String(formData.get("email") || "").trim().toLowerCase(),
+    cancerType: String(formData.get("cancerType") || "").trim(),
+    ageRange: String(formData.get("ageRange") || "").trim(),
+    stage: String(formData.get("stage") || "prefer not to say").trim()
+  };
+  if (!profile.email || !profile.cancerType || !profile.ageRange) {
+    alert("Please complete every field to sign up.");
+    return;
+  }
+  setProfile(profile);
+  updateProfileUI();
+  renderResources();
+  showView("home");
+}
+
+function handleLogin(event) {
+  event.preventDefault();
+  const formData = new FormData(loginForm);
+  const email = String(formData.get("email") || "").trim().toLowerCase();
+  const profile = getProfile();
+  if (!profile || profile.email !== email) {
+    alert("No profile found for that email. Please sign up first.");
+    return;
+  }
+  state.profile = profile;
+  updateProfileUI();
+  renderResources();
+  showView("home");
+}
+
+function handleProfileUpdate(event) {
+  event.preventDefault();
+  const formData = new FormData(profileForm);
+  const updatedProfile = {
+    email: String(formData.get("email") || "").trim().toLowerCase(),
+    cancerType: String(formData.get("cancerType") || "").trim(),
+    ageRange: String(formData.get("ageRange") || "").trim(),
+    stage: String(formData.get("stage") || "prefer not to say").trim()
+  };
+  if (!updatedProfile.email || !updatedProfile.cancerType || !updatedProfile.ageRange) {
+    alert("Please complete every field to update your profile.");
+    return;
+  }
+  setProfile(updatedProfile);
+  updateProfileUI();
+  renderResources();
+  alert("Profile updated.");
+}
+
+function handleLogout() {
+  clearProfile();
+  showView("auth");
 }
 
 navTabs.forEach((tab) => {
@@ -374,6 +711,11 @@ document.querySelector("#quick-activity").addEventListener("click", () => {
   showView("studio");
 });
 
+signupForm.addEventListener("submit", handleSignup);
+loginForm.addEventListener("submit", handleLogin);
+profileForm.addEventListener("submit", handleProfileUpdate);
+document.querySelector("#logout-button").addEventListener("click", handleLogout);
+
 Object.entries(activities).forEach(([key, activity]) => {
   const option = document.createElement("option");
   option.value = key;
@@ -389,6 +731,7 @@ document.querySelector("#save-reflection").addEventListener("click", saveReflect
 document.querySelector("#clear-canvas").addEventListener("click", initializeCanvas);
 document.querySelector("#clear-data").addEventListener("click", () => {
   localStorage.removeItem("innerCanvasReflections");
+  localStorage.removeItem("innerCanvasDiary");
   renderReflections();
 });
 
@@ -406,6 +749,19 @@ document.querySelector("#start-recommended").onclick = () => {
   showView("studio");
 };
 
-initializeCanvas();
-updateStudio("anxiety");
-renderReflections();
+function init() {
+  state.profile = getProfile();
+  state.entries = getDiaryEntries();
+  updateProfileUI();
+  renderResources();
+  if (state.profile) {
+    showView("home");
+  } else {
+    showView("auth");
+  }
+  initializeCanvas();
+  updateStudio(state.currentEmotion);
+  renderReflections();
+}
+
+init();

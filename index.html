@@ -27,15 +27,82 @@
         <button class="nav-tab" type="button" data-view="studio">Studio</button>
         <button class="nav-tab" type="button" data-view="reflections">Reflections</button>
         <button class="nav-tab" type="button" data-view="resources">Resources</button>
+        <button class="nav-tab" type="button" data-view="profile">Profile</button>
         <button class="nav-tab support-tab" type="button" data-view="support">Support</button>
       </nav>
     </header>
 
     <main id="main">
+      <section class="view" id="auth" aria-labelledby="auth-title">
+        <div class="section-heading">
+          <p class="eyebrow">Personalized start</p>
+          <h1 id="auth-title">Start with your profile so recommendations can feel more relevant.</h1>
+          <p>Sign up once to shape the app around your cancer type, age range, and current journey stage.</p>
+        </div>
+
+        <div class="auth-layout">
+          <div class="auth-panel">
+            <h2>New here?</h2>
+            <p>Create a profile to save your entries and receive tailored activities.</p>
+            <form id="signup-form">
+              <label class="field">
+                <span>Email</span>
+                <input type="email" name="email" placeholder="you@example.com" required>
+              </label>
+              <label class="field">
+                <span>Cancer type</span>
+                <input type="text" name="cancerType" placeholder="Breast, lung, colorectal, etc." required>
+              </label>
+              <label class="field">
+                <span>Age range</span>
+                <select name="ageRange" required>
+                  <option value="">Select</option>
+                  <option value="18-29">18-29</option>
+                  <option value="30-49">30-49</option>
+                  <option value="50-64">50-64</option>
+                  <option value="65+">65+</option>
+                </select>
+              </label>
+              <label class="field">
+                <span>Cancer journey stage</span>
+                <select name="stage" required>
+                  <option value="newly diagnosed">Newly diagnosed</option>
+                  <option value="in treatment">In treatment</option>
+                  <option value="after treatment">After treatment</option>
+                  <option value="scan waiting">Monitoring or scan waiting</option>
+                  <option value="recurrence or metastatic disease">Recurrence or metastatic disease</option>
+                  <option value="transitioning off treatment">Transitioning off treatment</option>
+                  <option value="end of life">End of life</option>
+                  <option value="prefer not to say">Prefer not to say</option>
+                </select>
+              </label>
+              <div class="form-actions">
+                <button class="button primary" type="submit">Sign up</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="auth-panel">
+            <h2>Already signed up?</h2>
+            <p>Log in with the same email to continue your ongoing reflections.</p>
+            <form id="login-form">
+              <label class="field">
+                <span>Email</span>
+                <input type="email" name="email" placeholder="you@example.com" required>
+              </label>
+              <div class="form-actions">
+                <button class="button primary" type="submit">Log in</button>
+              </div>
+            </form>
+            <p class="small-text">This version stores your profile and entries in the browser.</p>
+          </div>
+        </div>
+      </section>
       <section class="view is-visible" id="home" aria-labelledby="home-title">
         <div class="hero-layout">
           <div class="hero-copy">
             <p class="eyebrow">Check in -> Understand -> Create -> Reflect</p>
+            <div class="home-greeting" id="welcome-greeting">Welcome to Inner Canvas. Start with the profile tab so the app can tailor support to you.</div>
             <h1 id="home-title">A quieter way to meet what you are carrying today.</h1>
             <p class="hero-text">
               Inner Canvas offers short, art-inspired coping activities for people living with and beyond cancer.
@@ -93,6 +160,7 @@
           <p>
             This check-in helps the website suggest a short creative activity. You can skip personal details.
           </p>
+          <p class="small-text" id="profile-context">Update your profile first to make recommendations more personalized.</p>
         </div>
 
         <form class="checkin-form" id="checkin-form">
@@ -176,6 +244,7 @@
               <span id="meter-fill"></span>
             </div>
             <p class="small-text" id="context-text">Your context will appear here.</p>
+            <p class="small-text" id="trend-summary">A weekly trend summary will appear here once you have entries.</p>
           </article>
 
           <article class="recommendation-panel">
@@ -248,7 +317,51 @@
         </div>
         <div class="reflection-list" id="reflection-list"></div>
       </section>
+      <section class="view" id="profile" aria-labelledby="profile-title">
+        <div class="section-heading">
+          <p class="eyebrow">Your profile</p>
+          <h1 id="profile-title">Personal details for tailored support</h1>
+          <p>Update these anytime so the app can better match your activities and resources.</p>
+        </div>
 
+        <form class="profile-form" id="profile-form">
+          <label class="field">
+            <span>Email</span>
+            <input type="email" name="email" id="profile-email" required>
+          </label>
+          <label class="field">
+            <span>Cancer type</span>
+            <input type="text" name="cancerType" id="profile-cancerType" placeholder="Breast, lung, colorectal, etc." required>
+          </label>
+          <label class="field">
+            <span>Age range</span>
+            <select name="ageRange" id="profile-ageRange" required>
+              <option value="">Select</option>
+              <option value="18-29">18-29</option>
+              <option value="30-49">30-49</option>
+              <option value="50-64">50-64</option>
+              <option value="65+">65+</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Cancer journey stage</span>
+            <select name="stage" id="profile-stage" required>
+              <option value="newly diagnosed">Newly diagnosed</option>
+              <option value="in treatment">In treatment</option>
+              <option value="after treatment">After treatment</option>
+              <option value="scan waiting">Monitoring or scan waiting</option>
+              <option value="recurrence or metastatic disease">Recurrence or metastatic disease</option>
+              <option value="transitioning off treatment">Transitioning off treatment</option>
+              <option value="end of life">End of life</option>
+              <option value="prefer not to say">Prefer not to say</option>
+            </select>
+          </label>
+          <div class="form-actions">
+            <button class="button primary" type="submit">Update profile</button>
+            <button class="button secondary" type="button" id="logout-button">Log out</button>
+          </div>
+        </form>
+      </section>
       <section class="view" id="resources" aria-labelledby="resources-title">
         <div class="section-heading">
           <p class="eyebrow">Reliable resources</p>
@@ -258,38 +371,7 @@
           </p>
         </div>
 
-        <div class="resource-grid">
-          <article class="resource-card">
-            <p class="tagline">National Cancer Institute</p>
-            <h2>Coping with Cancer</h2>
-            <p>General information about coping, support, survivorship, and patient-family resources.</p>
-            <a href="https://www.cancer.gov/about-cancer/coping" target="_blank" rel="noreferrer">Open source</a>
-          </article>
-          <article class="resource-card">
-            <p class="tagline">National Cancer Institute</p>
-            <h2>Emotions and Cancer</h2>
-            <p>Explains common emotional responses including anxiety, anger, sadness, and stress.</p>
-            <a href="https://www.cancer.gov/about-cancer/coping/feelings" target="_blank" rel="noreferrer">Open source</a>
-          </article>
-          <article class="resource-card">
-            <p class="tagline">American Cancer Society</p>
-            <h2>Managing Distress</h2>
-            <p>Guidance on distress, coping skills, and when professional support may help.</p>
-            <a href="https://www.cancer.org/cancer/managing-cancer/side-effects/emotional-mood-changes/distress/managing-distress.html" target="_blank" rel="noreferrer">Open source</a>
-          </article>
-          <article class="resource-card">
-            <p class="tagline">American Cancer Society</p>
-            <h2>Psychosocial Support Services</h2>
-            <p>Information about counseling, support groups, and social support for people with cancer.</p>
-            <a href="https://www.cancer.org/cancer/survivorship/coping/understanding-psychosocial-support-services.html" target="_blank" rel="noreferrer">Open source</a>
-          </article>
-          <article class="resource-card">
-            <p class="tagline">Peer-reviewed research</p>
-            <h2>Creative Arts Therapy Review</h2>
-            <p>Research synthesis on creative arts therapies, anxiety, depression, and quality of life in cancer care.</p>
-            <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC13000673/" target="_blank" rel="noreferrer">Open source</a>
-          </article>
-        </div>
+        <div class="resource-grid" id="resource-list"></div>
       </section>
 
       <section class="view" id="support" aria-labelledby="support-title">
